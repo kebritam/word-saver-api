@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping("/word")
 public class WordApiController {
 
     private final WordServiceDTO wordService;
@@ -22,13 +21,13 @@ public class WordApiController {
         this.wordService = wordService;
     }
 
-    @GetMapping
+    @GetMapping("/words")
     @ResponseStatus(HttpStatus.OK)
     public WordListDTO getAllWords(){
         return new WordListDTO(wordService.findAll());
     }
 
-    @GetMapping("/{value}")
+    @GetMapping("/word/{value}")
     @ResponseStatus(HttpStatus.OK)
     public WordDTO getWord(@PathVariable String value){
         return wordService.findByWord(value);

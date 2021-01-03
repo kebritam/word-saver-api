@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping("/category")
 public class CategoryApiController {
 
     private final CategoryServiceDTO categoryService;
@@ -22,13 +21,13 @@ public class CategoryApiController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping
+    @GetMapping("/categories")
     @ResponseStatus(HttpStatus.OK)
     public CategoryListDTO getCategories(){
         return new CategoryListDTO(categoryService.findAll());
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/category/{name}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO getCategory(@PathVariable String name){
         return categoryService.findByName(name);
