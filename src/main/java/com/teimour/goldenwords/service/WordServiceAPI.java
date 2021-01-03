@@ -4,12 +4,13 @@ import com.teimour.goldenwords.domain.Word;
 import com.teimour.goldenwords.exception.NotFoundException;
 import com.teimour.goldenwords.mapper.WordMapper;
 import com.teimour.goldenwords.modelDTO.WordDTO;
+import com.teimour.goldenwords.modelDTO.WordListDTO;
 import com.teimour.goldenwords.repository.WordRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author kebritam
@@ -36,10 +37,23 @@ public class WordServiceAPI implements WordServiceDTO {
     }
 
     @Override
-    public Set<WordDTO> findAll() {
-        Set<WordDTO> words=new HashSet<>();
-        wordRepository.findAll().forEach(word -> words.add(WordMapper.INSTANCE.wordToWordDTO(word)));
-        return words;
+    public WordListDTO findAll() {
+        WordMapper wordMapper = WordMapper.INSTANCE;
+        return new WordListDTO(
+                wordRepository.findAllByOrderByWordValue()
+                        .stream()
+                        .map(wordMapper::wordToWordDTO)
+                        .collect(Collectors.toList())
+        );
+    }
+
+    @Override
+    public List<String> findAllValues() {
+        return wordRepository.findAllByOrderByWordValue()
+                .stream()
+                .map(Word::getWordValue)
+                .collect(Collectors.toList())
+                ;
     }
 
 }

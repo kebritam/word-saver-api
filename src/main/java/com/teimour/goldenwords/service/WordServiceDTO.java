@@ -1,8 +1,9 @@
 package com.teimour.goldenwords.service;
 
 import com.teimour.goldenwords.modelDTO.WordDTO;
+import com.teimour.goldenwords.modelDTO.WordListDTO;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author kebritam
@@ -14,6 +15,7 @@ public interface WordServiceDTO {
 
     WordDTO findByWord(String word);
 
-    Set<WordDTO> findAll();
+    WordListDTO findAll();
 
+    List<String> findAllValues();
 }

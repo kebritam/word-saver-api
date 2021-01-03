@@ -6,6 +6,8 @@ import com.teimour.goldenwords.modelDTO.WordListDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author kebritam
  * Project golden-words
@@ -23,13 +25,19 @@ public class WordApiController {
 
     @GetMapping("/words")
     @ResponseStatus(HttpStatus.OK)
-    public WordListDTO getAllWords(){
-        return new WordListDTO(wordService.findAll());
+    public WordListDTO getWords() {
+        return wordService.findAll();
     }
 
     @GetMapping("/word/{value}")
     @ResponseStatus(HttpStatus.OK)
     public WordDTO getWord(@PathVariable String value){
         return wordService.findByWord(value);
+    }
+
+    @GetMapping("/word-values")
+    @ResponseStatus(HttpStatus.OK)
+    public List<String> getWordValues() {
+        return wordService.findAllValues();
     }
 }

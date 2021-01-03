@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author kebritam
@@ -19,5 +19,5 @@ import java.util.Set;
 public class WordListDTO {
 
     @JsonProperty("words")
-    private Set<WordDTO> wordDTOSet;
+    private List<WordDTO> wordDTOSet;
 }
