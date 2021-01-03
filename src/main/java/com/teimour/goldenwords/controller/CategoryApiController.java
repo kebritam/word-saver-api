@@ -2,9 +2,10 @@ package com.teimour.goldenwords.controller;
 
 import com.teimour.goldenwords.service.CategoryServiceDTO;
 import com.teimour.goldenwords.modelDTO.CategoryDTO;
-import com.teimour.goldenwords.modelDTO.CategoryListDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author kebritam
@@ -23,8 +24,8 @@ public class CategoryApiController {
 
     @GetMapping("/categories")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryListDTO getCategories(){
-        return new CategoryListDTO(categoryService.findAll());
+    public List<String> getCategories(){
+        return categoryService.findAllValues();
     }
 
     @GetMapping("/category/{name}")

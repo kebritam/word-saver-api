@@ -7,9 +7,9 @@ import com.teimour.goldenwords.modelDTO.CategoryDTO;
 import com.teimour.goldenwords.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author kebritam
@@ -27,17 +27,17 @@ public class CategoryServiceAPI implements CategoryServiceDTO {
     }
 
     @Override
-    public Set<CategoryDTO> findAll() {
-        Set<CategoryDTO> categories=new HashSet<>();
-        categoryRepository.findAll().forEach(
-                category -> categories.add(CategoryMapper.INSTANCE.categoryToCategoryDTO(category))
-        );
-        return categories;
+    public List<String> findAllValues() {
+        return categoryRepository.findAllByOrderByCategoryName()
+                .stream()
+                .map(Category::getCategoryName)
+                .collect(Collectors.toList())
+                ;
     }
 
     @Override
     public CategoryDTO findByName(String name) {
-        Optional<Category> categoryOptional=categoryRepository.findByCategoryName(name);
+        Optional<Category> categoryOptional = categoryRepository.findByCategoryNameIgnoreCase(name);
         if (categoryOptional.isEmpty()){
             throw new NotFoundException("category not found");
         }

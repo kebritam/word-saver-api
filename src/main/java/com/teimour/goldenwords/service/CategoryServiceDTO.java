@@ -2,7 +2,7 @@ package com.teimour.goldenwords.service;
 
 import com.teimour.goldenwords.modelDTO.CategoryDTO;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author kebritam
@@ -12,8 +12,7 @@ import java.util.Set;
 
 public interface CategoryServiceDTO {
 
-    Set<CategoryDTO> findAll();
+    List<String> findAllValues();
 
     CategoryDTO findByName(String name);
-
 }
