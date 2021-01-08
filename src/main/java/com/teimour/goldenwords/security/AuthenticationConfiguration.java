@@ -1,6 +1,5 @@
 package com.teimour.goldenwords.security;
 
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,7 +14,6 @@ import javax.sql.DataSource;
  */
 
 @EnableWebSecurity
-@Order(1)
 public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String API_KEY_AUTH_HEADER_NAME = "API_KEY";
