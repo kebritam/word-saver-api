@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.teimour</groupId>
-    <artifactId>golden-words</artifactId>
+    <artifactId>words-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>golden-words</name>
     <description>api for important words</description>
