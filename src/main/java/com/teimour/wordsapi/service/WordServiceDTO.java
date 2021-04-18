@@ -1,9 +1,8 @@
 package com.teimour.wordsapi.service;
 
-import com.teimour.wordsapi.modelDTO.WordDTO;
-import com.teimour.wordsapi.modelDTO.WordListDTO;
+import com.teimour.wordsapi.modelDTO.*;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author kebritam
@@ -15,7 +14,13 @@ public interface WordServiceDTO {
 
     WordDTO findByWord(String word);
 
-    WordListDTO findAll();
+    WordDTO getRandomWord();
 
-    List<String> findAllValues();
+    WordListDTO getRandomWords(int count);
+
+    DefinitionListDTO findDefinitions(String word);
+
+    Set<ExampleDTO> findExamples(String word);
+
+    RelatedWordsDTO findRelatedWords(String words);
 }

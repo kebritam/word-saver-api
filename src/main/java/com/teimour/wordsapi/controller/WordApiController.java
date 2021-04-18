@@ -1,12 +1,11 @@
 package com.teimour.wordsapi.controller;
 
+import com.teimour.wordsapi.modelDTO.*;
 import com.teimour.wordsapi.service.WordServiceDTO;
-import com.teimour.wordsapi.modelDTO.WordDTO;
-import com.teimour.wordsapi.modelDTO.WordListDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author kebritam
@@ -15,6 +14,7 @@ import java.util.List;
  */
 
 @RestController
+@RequestMapping("/words")
 public class WordApiController {
 
     private final WordServiceDTO wordService;
@@ -23,21 +23,33 @@ public class WordApiController {
         this.wordService = wordService;
     }
 
-    @GetMapping("/words")
+    @GetMapping("/random")
     @ResponseStatus(HttpStatus.OK)
-    public WordListDTO getWords() {
-        return wordService.findAll();
+    public WordListDTO randomWords(@RequestParam(value = "random-count", defaultValue = "1") int count) {
+        return wordService.getRandomWords(count);
     }
 
-    @GetMapping("/word/{value}")
+    @GetMapping("/{word}")
     @ResponseStatus(HttpStatus.OK)
-    public WordDTO getWord(@PathVariable String value){
-        return wordService.findByWord(value);
+    public WordDTO searchWord(@PathVariable String word) {
+        return wordService.findByWord(word);
     }
 
-    @GetMapping("/word-values")
+    @GetMapping("/{word}/definitions")
     @ResponseStatus(HttpStatus.OK)
-    public List<String> getWordValues() {
-        return wordService.findAllValues();
+    public DefinitionListDTO findDefinitions(@PathVariable("word") String word) {
+        return wordService.findDefinitions(word);
+    }
+
+    @GetMapping("/{word}/examples")
+    @ResponseStatus(HttpStatus.OK)
+    public Set<ExampleDTO> findExamples(@PathVariable("word") String word) {
+        return wordService.findExamples(word);
+    }
+
+    @GetMapping("/{word}/related")
+    @ResponseStatus(HttpStatus.OK)
+    public RelatedWordsDTO relatedWords(@PathVariable("word") String word) {
+        return wordService.findRelatedWords(word);
     }
 }

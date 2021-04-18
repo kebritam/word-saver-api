@@ -11,5 +11,11 @@ public enum WordClass {
     NOUN,
     VERB,
     ADVERB,
-    ADJECTIVE
+    ADJECTIVE,
+    PRONOUN,
+    PREPOSITION,
+    CONJUNCTION,
+    DETERMINER,
+    EXCLAMATION,
+    INTERJECTION
 }

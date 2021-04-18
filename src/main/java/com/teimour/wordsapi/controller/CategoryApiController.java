@@ -14,6 +14,7 @@ import java.util.List;
  */
 
 @RestController
+@RequestMapping("/categories")
 public class CategoryApiController {
 
     private final CategoryServiceDTO categoryService;
@@ -22,13 +23,13 @@ public class CategoryApiController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/categories")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<String> getCategories(){
         return categoryService.findAllValues();
     }
 
-    @GetMapping("/category/{name}")
+    @GetMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO getCategory(@PathVariable String name){
         return categoryService.findByName(name);
