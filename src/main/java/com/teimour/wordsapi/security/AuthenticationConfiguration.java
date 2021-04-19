@@ -4,6 +4,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.sql.DataSource;
 
@@ -16,26 +18,26 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String API_KEY_AUTH_HEADER_NAME = "API_KEY";
-
     private final DataSource dataSource;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationConfiguration(DataSource dataSource) {
+    public AuthenticationConfiguration(DataSource dataSource, PasswordEncoder passwordEncoder) {
         this.dataSource = dataSource;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        PreAuthTokenHeaderFilter filter = new PreAuthTokenHeaderFilter(API_KEY_AUTH_HEADER_NAME);
-        filter.setAuthenticationManager(new ApiKeyAuthenticationManager(dataSource));
+        ApiKeyFilter apiKeyFilter = new ApiKeyFilter(passwordEncoder, dataSource);
 
         http
                 .csrf().disable()
-                .antMatcher("/**")
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(filter)
+                .addFilterBefore(apiKeyFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                .antMatchers("/**")
+                .fullyAuthenticated()
                 .anyRequest()
                 .authenticated();
     }
