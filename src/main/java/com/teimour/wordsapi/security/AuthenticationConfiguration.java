@@ -36,8 +36,6 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(apiKeyFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/**")
-                .fullyAuthenticated()
                 .anyRequest()
                 .authenticated();
     }
