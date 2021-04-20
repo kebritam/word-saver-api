@@ -25,29 +25,29 @@ public class WordApiController {
 
     @GetMapping("/random")
     @ResponseStatus(HttpStatus.OK)
-    public WordListDTO randomWords(@RequestParam(value = "random-count", defaultValue = "1") int count) {
-        return wordService.getRandomWords(count);
+    public WordDTO randomWords() {
+        return wordService.getRandomWord();
     }
 
-    @GetMapping("/{word}")
+    @GetMapping("/search/{word}")
     @ResponseStatus(HttpStatus.OK)
     public WordDTO searchWord(@PathVariable String word) {
         return wordService.findByWord(word);
     }
 
-    @GetMapping("/{word}/definitions")
+    @GetMapping("/search/{word}/definitions")
     @ResponseStatus(HttpStatus.OK)
     public DefinitionListDTO findDefinitions(@PathVariable("word") String word) {
         return wordService.findDefinitions(word);
     }
 
-    @GetMapping("/{word}/examples")
+    @GetMapping("/search/{word}/examples")
     @ResponseStatus(HttpStatus.OK)
     public Set<ExampleDTO> findExamples(@PathVariable("word") String word) {
         return wordService.findExamples(word);
     }
 
-    @GetMapping("/{word}/related")
+    @GetMapping("/search/{word}/related")
     @ResponseStatus(HttpStatus.OK)
     public RelatedWordsDTO relatedWords(@PathVariable("word") String word) {
         return wordService.findRelatedWords(word);

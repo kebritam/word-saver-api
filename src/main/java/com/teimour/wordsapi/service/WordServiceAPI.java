@@ -36,16 +36,7 @@ public class WordServiceAPI implements WordServiceDTO {
 
     @Override
     public WordDTO getRandomWord() {
-        return INSTANCE.wordToWordDTO(wordRepository.findRandomWord(1).get(0));
-    }
-
-    @Override
-    public WordListDTO getRandomWords(int count) {
-        return new WordListDTO(wordRepository.findRandomWord(count)
-                .stream()
-                .map(INSTANCE::wordToWordDTO)
-                .collect(toList())
-        );
+        return INSTANCE.wordToWordDTO(wordRepository.findRandomWord());
     }
 
     @Override

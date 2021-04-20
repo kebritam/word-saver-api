@@ -16,8 +16,6 @@ public interface WordServiceDTO {
 
     WordDTO getRandomWord();
 
-    WordListDTO getRandomWords(int count);
-
     DefinitionListDTO findDefinitions(String word);
 
     Set<ExampleDTO> findExamples(String word);
