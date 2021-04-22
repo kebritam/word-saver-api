@@ -28,7 +28,7 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        ApiKeyFilter apiKeyFilter = new ApiKeyFilter(passwordEncoder, dataSource);
+        ApiKeyFilter apiKeyFilter = new ApiKeyFilter(new KeyManager(passwordEncoder, dataSource));
 
         http
                 .csrf().disable()
