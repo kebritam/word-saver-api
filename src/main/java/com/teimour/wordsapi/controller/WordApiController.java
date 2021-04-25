@@ -15,6 +15,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/words")
+@ResponseStatus(HttpStatus.OK)
 public class WordApiController {
 
     private final WordServiceDTO wordService;
@@ -24,32 +25,32 @@ public class WordApiController {
     }
 
     @GetMapping("/random")
-    @ResponseStatus(HttpStatus.OK)
     public WordDTO randomWords() {
         return wordService.getRandomWord();
     }
 
     @GetMapping("/search/{word}")
-    @ResponseStatus(HttpStatus.OK)
     public WordDTO searchWord(@PathVariable String word) {
         return wordService.findByWord(word);
     }
 
     @GetMapping("/search/{word}/definitions")
-    @ResponseStatus(HttpStatus.OK)
     public DefinitionListDTO findDefinitions(@PathVariable("word") String word) {
         return wordService.findDefinitions(word);
     }
 
     @GetMapping("/search/{word}/examples")
-    @ResponseStatus(HttpStatus.OK)
     public Set<ExampleDTO> findExamples(@PathVariable("word") String word) {
         return wordService.findExamples(word);
     }
 
     @GetMapping("/search/{word}/related")
-    @ResponseStatus(HttpStatus.OK)
     public RelatedWordsDTO relatedWords(@PathVariable("word") String word) {
         return wordService.findRelatedWords(word);
+    }
+
+    @GetMapping("/search/{word}/definitions/{uuid}")
+    public DefinitionDTO findDefinition(@PathVariable("word") String word, @PathVariable("uuid") String uuid) {
+        return wordService.findDefinition(word, uuid);
     }
 }

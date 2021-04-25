@@ -44,9 +44,24 @@ public class WordServiceAPI implements WordServiceDTO {
         return new DefinitionListDTO(queryOptional(word)
                 .getDefinitions()
                 .stream()
-                .map(INSTANCE::definitionToDefinitionDTO)
+                .map(definition -> new ShallowDefinition(
+                        definition.getDefinitionValue(),
+                        "words/search/" + word + "/definitions/" + definition.getUuid()
+                ))
                 .collect(toList())
         );
+    }
+
+    @Override
+    public DefinitionDTO findDefinition(String word, String uuid) {
+        return queryOptional(word)
+                .getDefinitions()
+                .stream()
+                .filter(definition -> definition.getUuid().toString().equals(uuid))
+                .map(INSTANCE::definitionToDefinitionDTO)
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("definition not found"))
+                ;
     }
 
     @Override
@@ -68,9 +83,11 @@ public class WordServiceAPI implements WordServiceDTO {
         );
     }
 
-    private List<String> extractStringList(Set<Word> words) {
+    private List<ShallowWord> extractStringList(Set<Word> words) {
         return words.stream()
-                .map(INSTANCE::wordToString)
+                .map(word -> new ShallowWord(
+                        word.getWordValue(), "/words/search/" + word.getWordValue()
+                ))
                 .collect(toList())
                 ;
     }

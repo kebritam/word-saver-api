@@ -16,6 +16,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class RelatedWordsDTO {
-    List<String> synonyms;
-    List<String> antonyms;
+    List<ShallowWord> synonyms;
+    List<ShallowWord> antonyms;
 }

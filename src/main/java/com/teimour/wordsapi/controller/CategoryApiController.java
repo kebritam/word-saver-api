@@ -1,5 +1,6 @@
 package com.teimour.wordsapi.controller;
 
+import com.teimour.wordsapi.modelDTO.ShallowCategory;
 import com.teimour.wordsapi.service.CategoryServiceDTO;
 import com.teimour.wordsapi.modelDTO.CategoryDTO;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class CategoryApiController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<String> getCategories(){
+    public List<ShallowCategory> getCategories(){
         return categoryService.findAllValues();
     }
 

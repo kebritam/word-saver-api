@@ -18,6 +18,8 @@ public interface WordServiceDTO {
 
     DefinitionListDTO findDefinitions(String word);
 
+    DefinitionDTO findDefinition(String word, String uuid);
+
     Set<ExampleDTO> findExamples(String word);
 
     RelatedWordsDTO findRelatedWords(String words);

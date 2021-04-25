@@ -1,6 +1,7 @@
 package com.teimour.wordsapi.service;
 
 import com.teimour.wordsapi.modelDTO.CategoryDTO;
+import com.teimour.wordsapi.modelDTO.ShallowCategory;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public interface CategoryServiceDTO {
 
-    List<String> findAllValues();
+    List<ShallowCategory> findAllValues();
 
     CategoryDTO findByName(String name);
 }
